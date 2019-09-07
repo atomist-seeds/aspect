@@ -25,10 +25,10 @@
   "main": "./index.js",
   "types": "./index.d.ts",
   "dependencies": {
-    "@atomist/automation-client": "1.6.3-master.20190905142444",
-    "@atomist/sdm": "1.6.2-master.20190905161334",
-    "@atomist/sdm-core": "1.6.2-master.20190905165129",
-    "@atomist/sdm-pack-aspect": "1.0.0-master.20190905095751",
+    "@atomist/automation-client": "1.7.0-master.20190906141311",
+    "@atomist/sdm": "1.7.0-master.20190906125625",
+    "@atomist/sdm-core": "1.7.0-master.20190906133314",
+    "@atomist/sdm-pack-aspect": "1.0.0-fingerprinting-job.20190907070844",
     "@atomist/sdm-pack-fingerprint": "5.0.0-master.20190903165024",
     "lodash": "^4.17.15"
   },

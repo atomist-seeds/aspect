@@ -46,7 +46,20 @@ export const LicenseAspect: Aspect<LicenseData> = {
                 sha: sha256(JSON.stringify(license)),
             };
         } catch (e) {
-            return [];
+            const license = {
+                key: "unknown",
+                name: "Unknown",
+                spdx: "unknown",
+                url: undefined,
+            };
+            return {
+                type: "gh-license",
+                name: "gh-license",
+                abbreviation: "lic",
+                version: "0.0.1",
+                data: license,
+                sha: sha256(JSON.stringify(license)),
+            };
         }
     },
     apply: async (p, papi) => {
