@@ -1,9 +1,9 @@
 import {
     HttpMethod,
     ProjectOperationCredentials,
-    TokenCredentials,
 } from "@atomist/automation-client";
 import { isTokenCredentials } from "@atomist/automation-client/lib/operations/common/ProjectOperationCredentials";
+import { AspectWithReportDetails } from "@atomist/sdm-pack-aspect";
 import {
     Aspect,
     sha256,
@@ -16,7 +16,7 @@ interface LicenseData {
     url: string;
 }
 
-export const LicenseAspect: Aspect<LicenseData> = {
+export const LicenseAspect: AspectWithReportDetails<LicenseData> = {
     name: "gh-license",
     displayName: "License",
     extract: async (p, pli) => {
@@ -90,6 +90,14 @@ export const LicenseAspect: Aspect<LicenseData> = {
     },
     toDisplayableFingerprint: fp => fp.data.name,
     toDisplayableFingerprintName: () => "License",
+    details: {
+        description: "Repository licenses as detected by GitHub",
+        shortName: "gh-license",
+        unit: "gh-license",
+        category: "GitHub",
+        url: `fingerprint/gh-license/gh-license?byOrg=true&trim=false`,
+        manage: true,
+    },
 };
 
 export function headers(papi: { credentials: ProjectOperationCredentials }): any {
