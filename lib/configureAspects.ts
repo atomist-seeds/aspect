@@ -10,7 +10,6 @@ import {
     RebaseFailure,
     RebaseStrategy,
 } from "@atomist/sdm-pack-fingerprint";
-import { LicenseAspect } from "./license";
 
 // This SDM only has a single PushImpact goal which is used
 // to run your aspects on Git pushes
@@ -31,7 +30,7 @@ export async function configureAspects(...aspects: Aspect[]): Promise<Configurat
             aspectSupport({
 
                 // Pass the aspects you want to run in this SDM
-                aspects: LicenseAspect,
+                aspects,
 
                 // Pass the PushImpact goal into the aspect support for it
                 // to get configured
