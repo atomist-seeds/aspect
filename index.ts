@@ -1,7 +1,10 @@
 import { PushImpact } from "@atomist/sdm";
 import { configure } from "@atomist/sdm-core";
 import { DeliveryGoals } from "@atomist/sdm-core/lib/machine/configure";
-import { aspectSupport } from "@atomist/sdm-pack-aspect";
+import {
+    aspectSupport,
+    enrich,
+} from "@atomist/sdm-pack-aspect";
 import {
     RebaseFailure,
     RebaseStrategy,
@@ -27,7 +30,15 @@ export const configuration = configure<AnalyzeGoals>(async sdm => {
         aspectSupport({
 
             // Pass the aspects you want to run in this SDM
-            aspects: LicenseAspect,
+            aspects: enrich(
+                LicenseAspect, {
+                    description: "Repository licenses as detected by GitHub",
+                    shortName: "gh-license",
+                    unit: "gh-license",
+                    category: "GitHub",
+                    url: `fingerprint/${LicenseAspect.name}/${LicenseAspect.name}?byOrg=true&trim=false`,
+                    manage: true,
+                }),
 
             // Pass the PushImpact goal into the aspect support for it
             // to get configured
