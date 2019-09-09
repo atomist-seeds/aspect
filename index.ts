@@ -31,7 +31,8 @@ export const configuration = configure<AnalyzeGoals>(async sdm => {
 
             // Pass the aspects you want to run in this SDM
             aspects: enrich(
-                LicenseAspect, {
+                LicenseAspect,
+                {
                     description: "Repository licenses as detected by GitHub",
                     shortName: "gh-license",
                     unit: "gh-license",
