@@ -5,7 +5,6 @@ import {
 import { isTokenCredentials } from "@atomist/automation-client/lib/operations/common/ProjectOperationCredentials";
 import { AspectWithReportDetails } from "@atomist/sdm-pack-aspect";
 import {
-    Aspect,
     sha256,
 } from "@atomist/sdm-pack-fingerprint";
 
