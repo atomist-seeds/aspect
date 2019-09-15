@@ -1,4 +1,4 @@
-import { configureAspects } from "./lib/configureAspects";
+import { configureAspects } from "@atomist/sdm-pack-aspect";
 import { LicenseAspect } from "./lib/license";
 
 // Main entry point into the SDM

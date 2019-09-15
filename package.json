@@ -25,27 +25,27 @@
   "main": "./index.js",
   "types": "./index.d.ts",
   "dependencies": {
-    "@atomist/automation-client": "1.7.0-master.20190909084408",
-    "@atomist/sdm": "1.7.0-master.20190906125625",
-    "@atomist/sdm-core": "1.7.0-master.20190906133314",
-    "@atomist/sdm-pack-aspect": "1.0.0-master.20190909105225",
-    "@atomist/sdm-pack-fingerprint": "5.0.0-master.20190903165024",
+    "@atomist/automation-client": "^1.7.0",
+    "@atomist/sdm": "^1.7.0",
+    "@atomist/sdm-core": "^1.7.0",
+    "@atomist/sdm-pack-aspect": "1.0.0-master.20190915182939",
+    "@atomist/sdm-pack-fingerprint": "5.0.1-master.20190915182018",
     "lodash": "^4.17.15"
   },
   "devDependencies": {
-    "@atomist/sdm-local": "^1.2.0",
+    "@atomist/sdm-local": "^1.2.1",
     "@types/mocha": "^5.2.7",
     "@types/power-assert": "^1.5.0",
     "espower-typescript": "^9.0.2",
     "mocha": "^6.2.0",
     "npm-run-all": "^4.1.5",
     "power-assert": "^1.6.1",
-    "rimraf": "^2.6.3",
+    "rimraf": "^3.0.0",
     "supervisor": "^0.12.0",
     "ts-node": "^8.3.0",
-    "tslint": "^5.18.0",
+    "tslint": "^5.20.0",
     "typedoc": "^0.15.0",
-    "typescript": "^3.6.2"
+    "typescript": "^3.6.3"
   },
   "directories": {
     "test": "test"
