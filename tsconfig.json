@@ -4,35 +4,27 @@
     "target": "ES2016",
     "module": "CommonJS",
     "moduleResolution": "Node",
-    "jsx": "react",
+    "jsx": "React",
     "declaration": true,
     "declarationMap": true,
     "sourceMap": true,
-    "lib": [
-      "dom",
-      "es2017",
-      "dom.iterable",
-      "scripthost",
-      "esnext.asynciterable"
-    ],
-    "strict": false,
-    "strictNullChecks": false,
+    "lib": ["DOM"],
+    "strict": true,
     "forceConsistentCasingInFileNames": true,
     "noImplicitReturns": true,
-    "noUnusedLocals": false,
+    "noUnusedLocals": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true
   },
   "include": [
     "index.ts",
-    "views/**/*.tsx",
+    "bin/*.ts",
     "lib/**/*.ts",
     "test/**/*.ts",
-    "public/**/*.ts"
+    "public/**/*.ts",
+    "views/**/*.ts"
   ],
-  "exclude": [
-    ".#*"
-  ],
+  "exclude": [".#*"],
   "compileOnSave": true,
   "buildOnSave": false,
   "atom": {

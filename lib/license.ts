@@ -1,12 +1,26 @@
+/*
+ * Copyright © 2019 Atomist, Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 import {
     HttpMethod,
     ProjectOperationCredentials,
 } from "@atomist/automation-client";
 import { isTokenCredentials } from "@atomist/automation-client/lib/operations/common/ProjectOperationCredentials";
 import { AspectWithReportDetails } from "@atomist/sdm-pack-aspect";
-import {
-    sha256,
-} from "@atomist/sdm-pack-fingerprint";
+import { sha256 } from "@atomist/sdm-pack-fingerprint";
 
 interface LicenseData {
     key: string;
@@ -19,6 +33,9 @@ export const LicenseAspect: AspectWithReportDetails<LicenseData> = {
     name: "gh-license",
     displayName: "License",
     extract: async (p, pli) => {
+        if (!pli.configuration.http || !pli.configuration.http.client || !pli.configuration.http.client.factory) {
+            return [];
+        }
         const url = `https://api.github.com/repos/${p.id.owner}/${p.id.repo}/license`;
         const client = pli.configuration.http.client.factory.create(url);
 
@@ -62,6 +79,9 @@ export const LicenseAspect: AspectWithReportDetails<LicenseData> = {
         }
     },
     apply: async (p, papi) => {
+        if (!papi.parameters || !papi.configuration.http || !papi.configuration.http.client || !papi.configuration.http.client.factory) {
+            return p;
+        }
         const fp = papi.parameters.fp;
         const key = fp.data.key;
         const url = `https://api.github.com/licenses`;
@@ -72,18 +92,23 @@ export const LicenseAspect: AspectWithReportDetails<LicenseData> = {
                     method: HttpMethod.Get,
                     headers: headers(papi),
                 });
-
+        if (!licenses.body) {
+            return p;
+        }
         const license = licenses.body.find(l => l.key === key);
-        if (!!license) {
-            const licenseText = await papi.configuration.http.client.factory.create(license.url)
-                .exchange<{ body: string }>(license.url, { method: HttpMethod.Get });
-
-            const licenseFile = await p.getFile("LICENSE");
-            if (!!licenseFile) {
-                await licenseFile.setContent(licenseText.body.body);
-            } else {
-                await p.addFile("LICENSE", licenseText.body.body);
-            }
+        if (!license) {
+            return p;
+        }
+        const licenseText = await papi.configuration.http.client.factory.create(license.url)
+            .exchange<{ body: string }>(license.url, { method: HttpMethod.Get });
+        if (!licenseText.body) {
+            return p;
+        }
+        const licenseFile = await p.getFile("LICENSE");
+        if (!!licenseFile) {
+            await licenseFile.setContent(licenseText.body.body);
+        } else {
+            await p.addFile("LICENSE", licenseText.body.body);
         }
         return p;
     },
