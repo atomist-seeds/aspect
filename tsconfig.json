@@ -20,9 +20,7 @@
     "index.ts",
     "bin/*.ts",
     "lib/**/*.ts",
-    "test/**/*.ts",
-    "public/**/*.ts",
-    "views/**/*.ts"
+    "test/**/*.ts"
   ],
   "exclude": [".#*"],
   "compileOnSave": true,
